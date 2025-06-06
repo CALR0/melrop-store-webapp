@@ -1,11 +1,9 @@
-import { Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import { Mail, Phone } from 'lucide-react';
 import { SocialLink, QuickLink } from '../types';
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: Facebook, href: '#', label: 'Facebook' },
-  { icon: Twitter, href: '#', label: 'Twitter' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Linkedin, href: '#', label: 'LinkedIn' }
+  { icon: Phone, href: 'https://wa.me/573001234567', label: 'WhatsApp' },
+  { icon: Mail, href: 'mailto:hola@melropstore.com', label: 'Gmail' }
 ];
 
 export const QUICK_LINKS: QuickLink[] = [

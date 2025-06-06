@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Heart, Eye } from 'lucide-react';
+import { Heart, Eye } from 'lucide-react';
 import { Product } from '../../types';
-import Button from './Button';
 
 interface ProductCardProps {
   product: Product;
@@ -53,21 +52,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variants }) => {
 
       {/* Product Info */}
       <div className="p-6">
-        {/* Rating */}
-        <div className="flex items-center space-x-1 mb-2">
-          {[...Array(5)].map((_, i) => (
-            <Star
-              key={i}
-              className={`w-4 h-4 ${
-                i < Math.floor(product.rating)
-                  ? 'text-yellow-400 fill-current'
-                  : 'text-gray-300'
-              }`}
-            />
-          ))}
-          <span className="text-sm text-gray-600 ml-2">({product.rating})</span>
-        </div>
-
         <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
           {product.name}
         </h3>
@@ -76,14 +60,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, variants }) => {
           {product.description}
         </p>
 
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-center">
           <span className="text-2xl font-bold text-purple-600">
             {product.price}
           </span>
-          
-          <Button size="sm">
-            Ver Detalles
-          </Button>
         </div>
       </div>
     </motion.div>

@@ -85,7 +85,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex justify-center"
         >
           <Button onClick={onExploreClick} size="lg">
             <span>Explorar productos</span>
@@ -95,10 +95,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
             >
               <ArrowRight className="w-5 h-5" />
             </motion.div>
-          </Button>
-
-          <Button variant="secondary" size="lg">
-            Conoce más
           </Button>
         </motion.div>
 

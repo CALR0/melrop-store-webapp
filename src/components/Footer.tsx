@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Mail, Phone, MapPin } from 'lucide-react';
-import { SOCIAL_LINKS, QUICK_LINKS, CATEGORIES } from '../constants/footer';
+import { SOCIAL_LINKS, QUICK_LINKS } from '../constants/footer';
 import Logo from './ui/Logo';
-import Button from './ui/Button';
 
 const Footer: React.FC = () => {
   return (
@@ -29,14 +28,13 @@ const Footer: React.FC = () => {
       <div className="relative z-10">
         {/* Main Footer Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Brand Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-1"
             >
               <div className="mb-4">
                 <Logo />
@@ -62,12 +60,13 @@ const Footer: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links */}
+            {/* Quick Links - Centered */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              className="flex flex-col items-center text-center"
             >
               <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
               <ul className="space-y-2">
@@ -85,35 +84,12 @@ const Footer: React.FC = () => {
               </ul>
             </motion.div>
 
-            {/* Categories */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <h3 className="text-lg font-semibold mb-4">Categorías</h3>
-              <ul className="space-y-2">
-                {CATEGORIES.map((category, index) => (
-                  <li key={index}>
-                    <motion.a
-                      href={category.href}
-                      whileHover={{ x: 4 }}
-                      className="text-gray-400 hover:text-white transition-colors duration-200"
-                    >
-                      {category.name}
-                    </motion.a>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
             {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.3 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h3 className="text-lg font-semibold mb-4">Información de Contacto</h3>
               <div className="space-y-3">
@@ -133,38 +109,6 @@ const Footer: React.FC = () => {
             </motion.div>
           </div>
         </div>
-
-        {/* Newsletter Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="border-t border-gray-800"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="mb-4 md:mb-0">
-                <h3 className="text-xl font-semibold mb-2">Mantente actualizado</h3>
-                <p className="text-gray-400">Recibe las últimas noticias sobre nuestros productos y ofertas exclusivas.</p>
-              </div>
-              
-              <motion.div
-                className="flex w-full md:w-auto"
-                whileHover={{ scale: 1.02 }}
-              >
-                <input
-                  type="email"
-                  placeholder="Ingresa tu email"
-                  className="flex-1 md:w-64 px-4 py-3 bg-gray-800 border border-gray-700 rounded-l-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent"
-                />
-                <Button variant="primary" className="rounded-l-none">
-                  Suscribirse
-                </Button>
-              </motion.div>
-            </div>
-          </div>
-        </motion.div>
 
         {/* Bottom Bar */}
         <div className="border-t border-gray-800">
