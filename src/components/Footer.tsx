@@ -29,12 +29,13 @@ const Footer: React.FC = () => {
         {/* Main Footer Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Brand Section */}
+            {/* Brand Section - Centrado */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="flex flex-col items-center text-center"
             >
               <div className="mb-4">
                 <Logo />
@@ -60,7 +61,7 @@ const Footer: React.FC = () => {
               </div>
             </motion.div>
 
-            {/* Quick Links - Centered */}
+            {/* Quick Links - Ya estaba centrado */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,12 +85,13 @@ const Footer: React.FC = () => {
               </ul>
             </motion.div>
 
-            {/* Contact Info */}
+            {/* Contact Info - Centrado */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex flex-col items-center text-center"
             >
               <h3 className="text-lg font-semibold mb-4">Información de contacto</h3>
               <div className="space-y-3">
@@ -101,16 +103,16 @@ const Footer: React.FC = () => {
                   <Phone className="w-5 h-5 text-purple-400" />
                   <span className="text-gray-400">+57 3001234567</span>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-purple-400 mt-0.5" />
-                  <span className="text-gray-400">Manzana B5 Casa 23 Curinca,<br />Santa Marta</span>
+                <div className="flex items-center space-x-3">
+                  <MapPin className="w-5 h-5 text-purple-400" />
+                  <span className="text-gray-400">Manzana B5 Casa 23 Curinca, Santa Marta</span>
                 </div>
               </div>
             </motion.div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - Mantiene su alineación original */}
         <div className="border-t border-gray-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <div className="flex flex-col md:flex-row items-center justify-between">

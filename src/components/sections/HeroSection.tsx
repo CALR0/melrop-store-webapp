@@ -11,7 +11,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 pt-50 pb-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -62,7 +62,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
+        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto mt-16"
       >
         <motion.h1
           variants={itemVariants}
@@ -101,7 +101,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
         {/* Stats */}
         <motion.div
           variants={itemVariants}
-          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
+          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto mb-19"
         >
           {HERO_STATS.map((stat, index) => (
             <motion.div
@@ -118,11 +118,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
         </motion.div>
       </motion.div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Centrado perfectamente */}
       <motion.div
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 z-20"
       >
         <div className="flex flex-col items-center">
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
