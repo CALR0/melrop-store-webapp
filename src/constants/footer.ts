@@ -7,16 +7,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 export const QUICK_LINKS: QuickLink[] = [
-  { name: 'Acerca de', href: '#' },
+  { name: 'Home', href: '#' },
   { name: 'Productos', href: '#products' },
   { name: 'Contacto', href: '#contact' },
   { name: 'Soporte', href: '#' }
-];
-
-export const CATEGORIES: QuickLink[] = [
-  { name: 'Electrónicos', href: '#' },
-  { name: 'Wearables', href: '#' },
-  { name: 'Accesorios', href: '#' },
-  { name: 'Fotografía', href: '#' },
-  { name: 'Muebles', href: '#' }
 ];

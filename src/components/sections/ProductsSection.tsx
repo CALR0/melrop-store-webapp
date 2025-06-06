@@ -1,12 +1,31 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ShoppingCart } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ShoppingCart, ChevronDown, ChevronUp } from 'lucide-react';
 import { containerVariants, itemVariants, scaleIn } from '../../styles/animations';
 import { PRODUCTS } from '../../constants/products';
 import ProductCard from '../ui/ProductCard';
 import Button from '../ui/Button';
 
 const ProductsSection: React.FC = () => {
+  const [showAll, setShowAll] = useState(false);
+
+  const displayedProducts = showAll ? PRODUCTS : PRODUCTS.slice(0, 6);
+
+  const handleToggleProducts = () => {
+    if (!showAll) {
+      setShowAll(true);
+    } else {
+      setShowAll(false);
+      // Scroll suavemente hacia la sección de productos cuando se oculten
+      setTimeout(() => {
+        const productsSection = document.getElementById('products');
+        if (productsSection) {
+          productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <section id="products" className="py-20 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,27 +52,47 @@ const ProductsSection: React.FC = () => {
             Colección destacada
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Descubre nuestra selección de productos destacados, un catálogo completo de variedades para ti.</p>
+            Descubre nuestra selección de productos destacados, un catálogo completo de variedades para ti.
+          </p>
+          
+          {/* Products Counter */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="mt-4"
+          >
+            <span className="text-sm text-gray-500">
+              Mostrando {displayedProducts.length} de {PRODUCTS.length} productos
+            </span>
+          </motion.div>
         </motion.div>
 
         {/* Products Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {PRODUCTS.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              variants={itemVariants}
-            />
-          ))}
-        </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <AnimatePresence mode="wait">
+            {displayedProducts.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.1
+                }}
+              >
+                <ProductCard
+                  product={product}
+                  variants={itemVariants}
+                />
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
 
-        {/* Call to Action */}
+        {/* Toggle Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,9 +100,42 @@ const ProductsSection: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-16"
         >
-          <Button size="lg">
-            Ver más
+          <Button 
+            size="lg" 
+            onClick={handleToggleProducts}
+            className="group"
+          >
+            <span>
+              {showAll ? 'Ver menos productos' : 'Ver más productos'}
+            </span>
+            <motion.div
+              animate={{ 
+                rotate: showAll ? 180 : 0,
+                y: showAll ? 0 : [0, 2, 0]
+              }}
+              transition={{ 
+                rotate: { duration: 0.3 },
+                y: { duration: 1.5, repeat: showAll ? 0 : Infinity }
+              }}
+            >
+              {showAll ? (
+                <ChevronUp className="w-5 h-5" />
+              ) : (
+                <ChevronDown className="w-5 h-5" />
+              )}
+            </motion.div>
           </Button>
+          
+          {!showAll && (
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-sm text-gray-500 mt-3"
+            >
+              {PRODUCTS.length - 6} productos más disponibles
+            </motion.p>
+          )}
         </motion.div>
       </div>
     </section>

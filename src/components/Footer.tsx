@@ -68,7 +68,7 @@ const Footer: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="flex flex-col items-center text-center"
             >
-              <h3 className="text-lg font-semibold mb-4">Enlaces Rápidos</h3>
+              <h3 className="text-lg font-semibold mb-4">Enlaces rápidos</h3>
               <ul className="space-y-2">
                 {QUICK_LINKS.map((link, index) => (
                   <li key={index}>
@@ -91,7 +91,7 @@ const Footer: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h3 className="text-lg font-semibold mb-4">Información de Contacto</h3>
+              <h3 className="text-lg font-semibold mb-4">Información de contacto</h3>
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-purple-400" />
