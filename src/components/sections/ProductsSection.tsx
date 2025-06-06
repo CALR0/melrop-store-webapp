@@ -18,16 +18,13 @@ const ProductsSection: React.FC = () => {
       setShowAll(false);
       // Scroll suavemente hacia la sección de productos cuando se oculten
       setTimeout(() => {
-        const productsSection = document.getElementById('products');
-        if (productsSection) {
-          productsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
     }
   };
 
   return (
-    <section id="products" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section className="pt-20 pb-20 bg-gradient-to-br from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -92,13 +89,13 @@ const ProductsSection: React.FC = () => {
           </AnimatePresence>
         </div>
 
-        {/* Toggle Button */}
+        {/* Toggle Button - Centrado */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-16"
+          className="flex flex-col items-center mt-16"
         >
           <Button 
             size="lg" 
@@ -108,22 +105,16 @@ const ProductsSection: React.FC = () => {
             <span>
               {showAll ? 'Ver menos productos' : 'Ver más productos'}
             </span>
-            <motion.div
-              animate={{ 
-                rotate: showAll ? 180 : 0,
-                y: showAll ? 0 : [0, 2, 0]
-              }}
-              transition={{ 
-                rotate: { duration: 0.3 },
-                y: { duration: 1.5, repeat: showAll ? 0 : Infinity }
-              }}
-            >
-              {showAll ? (
-                <ChevronUp className="w-5 h-5" />
-              ) : (
+            {showAll ? (
+              <ChevronUp className="w-5 h-5" />
+            ) : (
+              <motion.div
+                animate={{ y: [0, 2, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
                 <ChevronDown className="w-5 h-5" />
-              )}
-            </motion.div>
+              </motion.div>
+            )}
           </Button>
           
           {!showAll && (
@@ -131,7 +122,7 @@ const ProductsSection: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="text-sm text-gray-500 mt-3"
+              className="text-sm text-gray-500 mt-3 text-center"
             >
               {PRODUCTS.length - 6} productos más disponibles
             </motion.p>

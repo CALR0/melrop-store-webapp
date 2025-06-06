@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
                 <Logo />
               </div>
               <p className="text-gray-400 mb-6 leading-relaxed">
-                Descubre productos excepcionales creados con innovación y estilo. Tu socio de confianza para productos de calidad premium.
+                Encuentra los productos necesarios para tu vida. Tu socio de confianza para productos de calidad.
               </p>
               
               {/* Social Links */}

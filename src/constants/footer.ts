@@ -7,8 +7,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
 ];
 
 export const QUICK_LINKS: QuickLink[] = [
-  { name: 'Home', href: '#' },
-  { name: 'Productos', href: '#products' },
-  { name: 'Contacto', href: '#contact' },
+  { name: 'Home', href: '/' },
+  { name: 'Productos', href: '/products' },
+  { name: 'Contacto', href: '/contact' },
   { name: 'Soporte', href: '#' }
 ];
