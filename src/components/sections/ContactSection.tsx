@@ -7,7 +7,7 @@ import ContactForm from '../ui/ContactForm';
 
 const ContactSection: React.FC = () => {
   return (
-    <section className="pt-20 pb-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
+    <section className="pt-24 pb-20 bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0">
         <motion.div

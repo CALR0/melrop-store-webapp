@@ -11,7 +11,7 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 pt-50 pb-20">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 pt-24 pb-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <motion.div
@@ -62,7 +62,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto mt-16"
+        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto"
       >
         <motion.h1
           variants={itemVariants}
