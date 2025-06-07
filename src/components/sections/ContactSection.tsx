@@ -143,22 +143,40 @@ const ContactSection: React.FC = () => {
               </motion.div>
             ))}
 
-            {/* Additional decorative element */}
+            {/* Additional decorative element - ANIMACIÓN SUAVIZADA */}
             <motion.div
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 200 }}
+              transition={{ 
+                delay: 1.2, 
+                duration: 0.8,
+                ease: "easeOut"
+              }}
               className="mt-8 p-4 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10"
             >
               <div className="flex items-center space-x-2 text-white/80">
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "linear" 
+                  }}
                 >
                   <Sparkles className="w-4 h-4 text-purple-400" />
                 </motion.div>
-                <span className="text-sm">Respuesta garantizada en 24 horas</span>
+                <motion.span 
+                  className="text-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ 
+                    delay: 1.5, 
+                    duration: 0.6 
+                  }}
+                >
+                  Respuesta garantizada en 24 horas
+                </motion.span>
               </div>
             </motion.div>
           </motion.div>

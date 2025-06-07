@@ -143,26 +143,52 @@ const ProductsSection: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {/* Background glow for active state */}
-                  {isActive && (
+                  {/* Background glow - SIEMPRE visible para categoría activa */}
+                  <AnimatePresence>
+                    {isActive && (
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-40"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ 
+                          opacity: 0.4, 
+                          scale: 1.1,
+                          boxShadow: [
+                            "0 0 20px rgba(147, 51, 234, 0.4)",
+                            "0 0 30px rgba(147, 51, 234, 0.6)",
+                            "0 0 20px rgba(147, 51, 234, 0.4)"
+                          ]
+                        }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        transition={{ 
+                          duration: 0.3,
+                          boxShadow: {
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "easeInOut"
+                          }
+                        }}
+                      />
+                    )}
+                  </AnimatePresence>
+                  
+                  {/* Hover glow adicional para categorías no activas */}
+                  {!isActive && (
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-30"
-                      layoutId="activeGlow"
-                      initial={false}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl blur-lg opacity-0 group-hover:opacity-20"
+                      transition={{ duration: 0.3 }}
                     />
                   )}
                   
                   {/* Content */}
-                  <div className="relative flex items-center space-x-3">
+                  <div className="relative flex items-center space-x-3 z-10">
                     <div
-                      className={`p-1.5 rounded-lg ${
+                      className={`p-1.5 rounded-lg transition-all duration-300 ${
                         isActive 
                           ? 'bg-white/20' 
                           : 'bg-purple-100 group-hover:bg-purple-200'
                       }`}
                     >
-                      <IconComponent className={`w-4 h-4 ${
+                      <IconComponent className={`w-4 h-4 transition-all duration-300 ${
                         isActive ? 'text-white' : 'text-purple-600'
                       }`} />
                     </div>
@@ -172,22 +198,38 @@ const ProductsSection: React.FC = () => {
                         {category.name}
                       </span>
                       <motion.span 
-                        className={`text-xs ${
+                        className={`text-xs transition-all duration-300 ${
                           isActive ? 'text-white/80' : 'text-gray-500'
                         }`}
-                        animate={{
-                          opacity: [0.7, 1, 0.7]
-                        }}
-                        transition={{
+                        animate={isActive ? {
+                          opacity: [0.8, 1, 0.8]
+                        } : {}}
+                        transition={isActive ? {
                           duration: 2,
                           repeat: Infinity,
                           ease: "easeInOut"
-                        }}
+                        } : {}}
                       >
                         {category.count} productos
                       </motion.span>
                     </div>
                   </div>
+
+                  {/* Efecto de pulso adicional para categoría activa */}
+                  {isActive && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl opacity-20"
+                      animate={{
+                        scale: [1, 1.05, 1],
+                        opacity: [0.2, 0.3, 0.2]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  )}
                 </motion.button>
               );
             })}
