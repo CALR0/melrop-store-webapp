@@ -176,7 +176,7 @@ const ProductsSection: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Enhanced Toggle Button */}
+        {/* Toggle Button - SIN efectos shimmer */}
         {filteredProducts.length > 6 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -188,22 +188,17 @@ const ProductsSection: React.FC = () => {
             <Button 
               size="lg" 
               onClick={handleToggleProducts}
-              className="group relative overflow-hidden"
+              className="group"
             >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                initial={false}
-              />
-              <span className="relative z-10">
+              <span>
                 {showAll ? 'Ver menos productos' : 'Ver más productos'}
               </span>
               {showAll ? (
-                <ChevronUp className="w-5 h-5 relative z-10" />
+                <ChevronUp className="w-5 h-5" />
               ) : (
                 <motion.div
                   animate={{ y: [0, 2, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
-                  className="relative z-10"
                 >
                   <ChevronDown className="w-5 h-5" />
                 </motion.div>
