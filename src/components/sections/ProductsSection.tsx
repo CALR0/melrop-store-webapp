@@ -133,7 +133,7 @@ const ProductsSection: React.FC = () => {
               <motion.button
                 key={category}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                   selectedCategory === category
                     ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
                     : 'bg-white text-gray-600 hover:bg-purple-50 hover:text-purple-600 border border-gray-200'
@@ -142,14 +142,6 @@ const ProductsSection: React.FC = () => {
                 whileTap={{ scale: 0.95 }}
               >
                 {category === 'all' ? 'Todos' : category}
-                {selectedCategory === category && (
-                  <motion.div
-                    layoutId="activeCategory"
-                    className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full -z-10"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  />
-                )}
               </motion.button>
             ))}
           </div>

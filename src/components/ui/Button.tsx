@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
   const baseClasses = 'font-semibold rounded-full transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden';
   
   const variantClasses = {
-    primary: 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-xl border border-purple-500/20',
+    primary: 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg hover:shadow-xl border border-purple-500/20 hover:from-purple-700 hover:to-pink-700',
     secondary: 'bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20',
     outline: 'border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white'
   };
@@ -47,22 +47,6 @@ const Button: React.FC<ButtonProps> = ({
       whileTap={{ scale: 0.98 }}
       transition={{ type: "spring", stiffness: 300 }}
     >
-      {/* Shimmer effect for primary buttons */}
-      {variant === 'primary' && (
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"
-          animate={{
-            x: ['-100%', '100%']
-          }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatDelay: 3,
-            ease: "linear"
-          }}
-        />
-      )}
-      
       {/* Button content */}
       <span className="relative z-10 flex items-center space-x-2">
         {children}

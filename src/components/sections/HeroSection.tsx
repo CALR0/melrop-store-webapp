@@ -154,16 +154,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
           variants={itemVariants}
           className="flex justify-center mb-16"
         >
-          <Button onClick={onExploreClick} size="lg" className="group relative overflow-hidden">
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-cyan-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              initial={false}
-            />
-            <span className="relative z-10">Explorar productos</span>
+          <Button onClick={onExploreClick} size="lg" className="group">
+            <span>Explorar productos</span>
             <motion.div
               animate={{ x: [0, 4, 0] }}
               transition={{ duration: 1.5, repeat: Infinity }}
-              className="relative z-10"
             >
               <ArrowRight className="w-5 h-5" />
             </motion.div>
