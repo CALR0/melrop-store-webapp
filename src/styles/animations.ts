@@ -15,7 +15,9 @@ export const itemVariants = {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.3
+      duration: 0.3,
+      type: "spring",
+      stiffness: 300
     }
   }
 };
@@ -39,5 +41,45 @@ export const floatingAnimation = {
     duration: 4,
     repeat: Infinity,
     ease: "easeInOut"
+  }
+};
+
+// New enhanced animations
+export const slideInFromLeft = {
+  hidden: { x: -50, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 300
+    }
+  }
+};
+
+export const slideInFromRight = {
+  hidden: { x: 50, opacity: 0 },
+  visible: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 300
+    }
+  }
+};
+
+export const fadeInScale = {
+  hidden: { scale: 0.8, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      type: "spring",
+      stiffness: 400
+    }
   }
 };
