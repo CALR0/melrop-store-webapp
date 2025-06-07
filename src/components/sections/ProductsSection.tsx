@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShoppingCart, ChevronDown, ChevronUp, Filter, Grid, Sparkles } from 'lucide-react';
+import { ShoppingCart, ChevronDown, ChevronUp, Grid, Sparkles, Package } from 'lucide-react';
 import { containerVariants, itemVariants, scaleIn } from '../../styles/animations';
 import { PRODUCTS } from '../../constants/products';
 import ProductCard from '../ui/ProductCard';
@@ -10,7 +10,13 @@ const ProductsSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
 
-  const categories = ['all', 'Consumible', 'Accesorio', 'Utensilio', 'Otros'];
+  const categories = [
+    { id: 'all', name: 'Todos los productos', icon: Grid, count: PRODUCTS.length },
+    { id: 'Consumible', name: 'Consumibles', icon: Package, count: PRODUCTS.filter(p => p.category === 'Consumible').length },
+    { id: 'Accesorio', name: 'Accesorios', icon: ShoppingCart, count: PRODUCTS.filter(p => p.category === 'Accesorio').length },
+    { id: 'Utensilio', name: 'Utensilios', icon: Grid, count: PRODUCTS.filter(p => p.category === 'Utensilio').length },
+    { id: 'Otros', name: 'Otros', icon: Package, count: PRODUCTS.filter(p => p.category === 'Otros').length }
+  ];
   
   const filteredProducts = selectedCategory === 'all' 
     ? PRODUCTS 
@@ -27,6 +33,10 @@ const ProductsSection: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
       }, 100);
     }
+  };
+
+  const getActiveCategory = () => {
+    return categories.find(cat => cat.id === selectedCategory);
   };
 
   return (
@@ -91,60 +101,121 @@ const ProductsSection: React.FC = () => {
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Descubre nuestra selección de productos destacados, un catálogo completo de variedades para ti.
           </p>
-          
-          {/* Products Counter with animation */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-4"
-          >
-            <motion.span 
-              className="text-sm text-gray-500"
-              animate={{
-                color: ['rgb(107, 114, 128)', 'rgb(147, 51, 234)', 'rgb(107, 114, 128)']
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            >
-              Mostrando {displayedProducts.length} de {filteredProducts.length} productos
-            </motion.span>
-          </motion.div>
         </motion.div>
 
-        {/* Enhanced Category Filter */}
+        {/* Simple Category Filter */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="mb-12"
         >
-          <div className="flex items-center space-x-2 mb-4">
-            <Filter className="w-4 h-4 text-purple-600" />
-            <span className="text-sm font-medium text-gray-700">Filtrar por categoría:</span>
+          {/* Filter Header */}
+          <div className="flex items-center justify-center mb-6">
+            <span className="text-gray-700 font-medium">Explorar por categoría</span>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+              className="ml-2"
+            >
+              <Sparkles className="w-4 h-4 text-purple-400" />
+            </motion.div>
           </div>
-          <div className="flex flex-wrap justify-center gap-2">
-            {categories.map((category) => (
-              <motion.button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                  selectedCategory === category
-                    ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
-                    : 'bg-white text-gray-600 hover:bg-purple-50 hover:text-purple-600 border border-gray-200'
-                }`}
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
+
+          {/* Category Pills */}
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
+            {categories.map((category, index) => {
+              const isActive = selectedCategory === category.id;
+              const IconComponent = category.icon;
+              
+              return (
+                <motion.button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`group relative flex items-center space-x-3 px-6 py-3 rounded-2xl font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg'
+                      : 'bg-white/90 text-gray-700 hover:bg-white hover:shadow-md border border-gray-200/50'
+                  }`}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {/* Background glow for active state */}
+                  {isActive && (
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-30"
+                      layoutId="activeGlow"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    />
+                  )}
+                  
+                  {/* Content */}
+                  <div className="relative flex items-center space-x-3">
+                    <div
+                      className={`p-1.5 rounded-lg ${
+                        isActive 
+                          ? 'bg-white/20' 
+                          : 'bg-purple-100 group-hover:bg-purple-200'
+                      }`}
+                    >
+                      <IconComponent className={`w-4 h-4 ${
+                        isActive ? 'text-white' : 'text-purple-600'
+                      }`} />
+                    </div>
+                    
+                    <div className="flex flex-col items-start">
+                      <span className="text-sm font-semibold">
+                        {category.name}
+                      </span>
+                      <motion.span 
+                        className={`text-xs ${
+                          isActive ? 'text-white/80' : 'text-gray-500'
+                        }`}
+                        animate={{
+                          opacity: [0.7, 1, 0.7]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                      >
+                        {category.count} productos
+                      </motion.span>
+                    </div>
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
+
+          {/* Active Filter Summary */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-center mt-6"
+          >
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-50 to-pink-50 px-4 py-2 rounded-full border border-purple-200/50">
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
               >
-                {category === 'all' ? 'Todos' : category}
-              </motion.button>
-            ))}
-          </div>
+                <Sparkles className="w-4 h-4 text-purple-500" />
+              </motion.div>
+              <span className="text-sm text-gray-600">
+                Mostrando <span className="font-semibold text-purple-600">{displayedProducts.length}</span> de{' '}
+                <span className="font-semibold text-purple-600">{filteredProducts.length}</span> productos
+                {selectedCategory !== 'all' && (
+                  <span className="text-purple-600"> en {getActiveCategory()?.name}</span>
+                )}
+              </span>
+            </div>
+          </motion.div>
         </motion.div>
 
         {/* Enhanced Products Grid */}
@@ -176,7 +247,7 @@ const ProductsSection: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Toggle Button - SIN efectos shimmer */}
+        {/* Enhanced Toggle Button */}
         {filteredProducts.length > 6 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
