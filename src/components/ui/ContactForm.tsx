@@ -100,12 +100,10 @@ const ContactForm: React.FC = () => {
           className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-transparent transition-all"
         >
           <option value="" className="text-gray-900">Selecciona una categoría de producto</option>
-          <option value="electronics" className="text-gray-900">Electrónicos</option>
-          <option value="wearables" className="text-gray-900">Wearables</option>
-          <option value="accessories" className="text-gray-900">Accesorios</option>
-          <option value="photography" className="text-gray-900">Fotografía</option>
-          <option value="furniture" className="text-gray-900">Muebles</option>
-          <option value="other" className="text-gray-900">Otro</option>
+          <option value="consumible" className="text-gray-900">Consumible</option>
+          <option value="accesorio" className="text-gray-900">Accesorio</option>
+          <option value="utensilio" className="text-gray-900">Utensilio</option>
+          <option value="otros" className="text-gray-900">Otros</option>
         </select>
       </motion.div>
 

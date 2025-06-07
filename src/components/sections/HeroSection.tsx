@@ -101,7 +101,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
         {/* Stats */}
         <motion.div
           variants={itemVariants}
-          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto mb-19"
+          className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto"
         >
           {HERO_STATS.map((stat, index) => (
             <motion.div
@@ -116,23 +116,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ onExploreClick }) => {
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
-
-      {/* Scroll Indicator - Centrado perfectamente */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 z-20"
-      >
-        <div className="flex flex-col items-center">
-          <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center">
-            <motion.div
-              animate={{ y: [0, 12, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="w-1 h-3 bg-white/60 rounded-full mt-2"
-            />
-          </div>
-        </div>
       </motion.div>
     </section>
   );

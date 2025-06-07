@@ -3,30 +3,19 @@ export const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.2,
-      staggerChildren: 0.1
+      delayChildren: 0.1,
+      staggerChildren: 0.05
     }
   }
 };
 
 export const itemVariants = {
-  hidden: { y: 50, opacity: 0 },
+  hidden: { y: 30, opacity: 0 },
   visible: {
     y: 0,
     opacity: 1,
     transition: {
-      duration: 0.5
-    }
-  }
-};
-
-export const fadeInUp = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.5
+      duration: 0.3
     }
   }
 };
