@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
-import { Product } from '../../types';
+import { Product } from '../../../types';
 import ImageModal from './ImageModal';
 
 interface ProductCardProps {

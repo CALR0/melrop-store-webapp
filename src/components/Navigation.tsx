@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
-import { NAV_ITEMS } from '../constants/navigation';
+import { getNavigationItems } from '../router/routes';
 import { useScrolled } from '../hooks/useScrolled';
-import Logo from './ui/Logo';
+import { Logo } from './ui/layout';
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -80,7 +80,7 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex space-x-8">
-            {NAV_ITEMS.map((item) => (
+            {getNavigationItems().map((item) => (
               <Link key={item.id} to={item.path}>
                 <motion.div
                   className={`relative px-4 py-2 rounded-full transition-colors ${getTextColor(activeRoute === item.id)}`}
@@ -124,7 +124,7 @@ const Navigation: React.FC = () => {
             className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200"
           >
             <div className="px-4 py-4 space-y-2">
-              {NAV_ITEMS.map((item) => (
+              {getNavigationItems().map((item) => (
                 <Link key={item.id} to={item.path}>
                   <motion.div
                     onClick={() => setIsOpen(false)}

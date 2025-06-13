@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
 import Navigation from './Navigation';
 import Footer from './Footer';
-import ScrollToTop from './ui/ScrollToTop';
+import { ScrollToTop } from './ui/navigation';
+import { usePageTitle } from '../hooks/usePageTitle';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const location = useLocation();
+  
+  // Hook para manejar el título dinámico de la página
+  usePageTitle();
 
   return (
     <div className="min-h-screen bg-white">

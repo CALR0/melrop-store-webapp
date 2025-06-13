@@ -1,23 +1,24 @@
 import { Mail, Phone, MapPin } from 'lucide-react';
 import { ContactInfo } from '../types';
+import { APP_CONFIG } from '../config';
 
 export const CONTACT_INFO: ContactInfo[] = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'melropstore@gmail.com',
+    content: APP_CONFIG.contact.email,
     description: 'Envíanos un email cuando quieras'
   },
   {
     icon: Phone,
     title: 'Teléfono',
-    content: '+57 316 2497083',
-    description: 'Lun-Vie de 9am a 8pm'
+    content: APP_CONFIG.contact.phone,
+    description: APP_CONFIG.business.hours
   },
   {
     icon: MapPin,
     title: 'Ubicación',
-    content: 'Manzana B5 Casa 23 Curinca - Santa Marta',
+    content: APP_CONFIG.contact.address,
     description: 'Visita nuestra sede física'
   }
 ];

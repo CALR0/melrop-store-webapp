@@ -1,9 +1,18 @@
 import { Mail, Phone } from 'lucide-react';
 import { SocialLink, QuickLink } from '../types';
+import { APP_CONFIG } from '../config';
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { icon: Phone, href: 'https://wa.me/573162497083', label: 'WhatsApp' },
-  { icon: Mail, href: 'mailto:melropstore@gmail.com', label: 'Gmail' }
+  { 
+    icon: Phone, 
+    href: APP_CONFIG.social.whatsapp, 
+    label: 'WhatsApp' 
+  },
+  { 
+    icon: Mail, 
+    href: APP_CONFIG.social.email, 
+    label: 'Gmail' 
+  }
 ];
 
 export const QUICK_LINKS: QuickLink[] = [

@@ -1,16 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ChevronUp } from 'lucide-react';
-import { useScrolled } from '../../hooks/useScrolled';
+import { useScrolled } from '../../../hooks/useScrolled';
+import { DOMUtils } from '../../../utils/dom';
+import { UI_CONFIG } from '../../../config';
 
 const ScrollToTop: React.FC = () => {
-  const scrolled = useScrolled(300);
+  const scrolled = useScrolled(UI_CONFIG.modalScrollThreshold);
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
+  const handleScrollToTop = () => {
+    DOMUtils.scrollToTop();
   };
 
   return (
@@ -20,7 +19,7 @@ const ScrollToTop: React.FC = () => {
         opacity: scrolled ? 1 : 0,
         scale: scrolled ? 1 : 0
       }}
-      onClick={scrollToTop}
+      onClick={handleScrollToTop}
       className="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-full shadow-lg flex items-center justify-center z-40 hover:shadow-xl transition-all duration-300"
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.9 }}

@@ -1,7 +1,17 @@
 import { Stat } from '../types';
+import { APP_CONFIG } from '../config';
 
 export const HERO_STATS: Stat[] = [
-  { number: '15+', label: 'Productos' },
-  { number: '100+', label: 'Clientes satisfechos' },
-  { number: '95%', label: 'Tasa de satisfacción' }
+  { 
+    number: APP_CONFIG.business.totalProducts, 
+    label: 'Productos' 
+  },
+  { 
+    number: APP_CONFIG.business.happyCustomers, 
+    label: 'Clientes satisfechos' 
+  },
+  { 
+    number: APP_CONFIG.business.satisfactionRate, 
+    label: 'Tasa de satisfacción' 
+  }
 ];

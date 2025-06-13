@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Mail, Phone, MapPin } from 'lucide-react';
 import { SOCIAL_LINKS, QUICK_LINKS } from '../constants/footer';
-import Logo from './ui/Logo';
+import { Logo } from './ui';
 
 const Footer: React.FC = () => {
   return (

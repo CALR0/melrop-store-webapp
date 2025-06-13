@@ -1,44 +1,18 @@
-export interface Product {
-  id: number;
+export * from './product';
+export * from './contact';
+export * from './navigation';
+export * from './ui';
+export * from './validation';
+
+export interface AppConfig {
   name: string;
-  price: string;
-  image: string;
-  category: string;
+  version: string;
   description: string;
 }
 
-export interface ContactInfo {
-  icon: any;
-  title: string;
-  content: string;
-  description: string;
-}
-
-export interface NavItem {
-  id: string;
-  label: string;
+export interface RouteConfig {
   path: string;
-}
-
-export interface SocialLink {
-  icon: any;
-  href: string;
-  label: string;
-}
-
-export interface QuickLink {
+  component: React.ComponentType;
   name: string;
-  href: string;
-}
-
-export interface Stat {
-  number: string;
-  label: string;
-}
-
-export interface FormData {
-  name: string;
-  email: string;
-  product: string;
-  message: string;
+  id: string;
 }
