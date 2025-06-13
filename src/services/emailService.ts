@@ -2,10 +2,10 @@ import emailjs from '@emailjs/browser';
 
 // Configuración de EmailJS
 const EMAILJS_CONFIG = {
-  serviceId: 'YOUR_SERVICE_ID', // Reemplazar con tu Service ID
-  templateId: 'YOUR_TEMPLATE_ID', // Reemplazar con tu Template ID
-  publicKey: 'YOUR_PUBLIC_KEY' // Reemplazar con tu Public Key
-};
+  serviceId: 'service_mgip4ds',
+  templateId: 'template_804rejd',
+  publicKey: '-jy8o3uq9AkGNWjBh'
+}
 
 export interface EmailData {
   name: string;
@@ -16,20 +16,17 @@ export interface EmailData {
 
 export const sendEmail = async (data: EmailData): Promise<boolean> => {
   try {
-    // Inicializar EmailJS con tu Public Key
     emailjs.init(EMAILJS_CONFIG.publicKey);
 
-    // Preparar los datos del template
     const templateParams = {
       from_name: data.name,
       from_email: data.email,
       product_interest: data.product,
       message: data.message,
-      to_email: 'hola@melropstore.com', // Tu email de destino
+      to_email: 'cdrew4488@gmail.com',
       reply_to: data.email
     };
 
-    // Enviar el email
     const response = await emailjs.send(
       EMAILJS_CONFIG.serviceId,
       EMAILJS_CONFIG.templateId,
@@ -44,7 +41,6 @@ export const sendEmail = async (data: EmailData): Promise<boolean> => {
   }
 };
 
-// Función para validar la configuración
 export const validateEmailConfig = (): boolean => {
   return !!(
     EMAILJS_CONFIG.serviceId !== 'YOUR_SERVICE_ID' &&
