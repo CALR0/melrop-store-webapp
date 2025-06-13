@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { FormData } from '../../types';
+import { sendEmail, validateEmailConfig } from '../../services/emailService';
 import Button from './Button';
 
 const ContactForm: React.FC = () => {
@@ -14,6 +15,10 @@ const ContactForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string>('');
+
+  // Verificar si EmailJS está configurado
+  const isEmailConfigured = useMemo(() => validateEmailConfig(), []);
 
   // Memoizar funciones de validación
   const validateName = useCallback((name: string): boolean => {
@@ -83,7 +88,12 @@ const ContactForm: React.FC = () => {
         [name]: undefined
       }));
     }
-  }, [errors]);
+
+    // Limpiar error de envío
+    if (submitError) {
+      setSubmitError('');
+    }
+  }, [errors, submitError]);
 
   // Optimizar envío del formulario
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
@@ -93,19 +103,41 @@ const ContactForm: React.FC = () => {
       return;
     }
 
+    // Verificar configuración de EmailJS
+    if (!isEmailConfigured) {
+      setSubmitError('El servicio de email no está configurado. Por favor contacta al administrador.');
+      return;
+    }
+
     setIsSubmitting(true);
+    setSubmitError('');
     
-    // Simular envío con timeout optimizado
-    setTimeout(() => {
-      setIsSubmitted(true);
+    try {
+      const success = await sendEmail({
+        name: formData.name,
+        email: formData.email,
+        product: formData.product,
+        message: formData.message
+      });
+
+      if (success) {
+        setIsSubmitted(true);
+        // Resetear formulario después de 3 segundos
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', product: '', message: '' });
+          setErrors({});
+        }, 3000);
+      } else {
+        setSubmitError('Hubo un error al enviar el mensaje. Por favor intenta nuevamente.');
+      }
+    } catch (error) {
+      console.error('Error en el envío:', error);
+      setSubmitError('Error de conexión. Verifica tu internet e intenta nuevamente.');
+    } finally {
       setIsSubmitting(false);
-      setTimeout(() => {
-        setIsSubmitted(false);
-        setFormData({ name: '', email: '', product: '', message: '' });
-        setErrors({});
-      }, 3000);
-    }, 800); // Reducir tiempo de simulación
-  }, [validateForm]);
+    }
+  }, [validateForm, isEmailConfigured, formData]);
 
   // Memoizar contador de caracteres
   const messageLength = useMemo(() => formData.message.length, [formData.message]);
@@ -127,7 +159,7 @@ const ContactForm: React.FC = () => {
         </motion.div>
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">¡Mensaje Enviado!</h3>
         <p className="text-white/80 text-sm sm:text-base px-4">
-          Gracias por tu interés. Te responderemos dentro de 24 horas.
+          Gracias por tu interés. Te responderemos a <strong>{formData.email}</strong> dentro de 24 horas.
         </p>
       </motion.div>
     );
@@ -135,6 +167,20 @@ const ContactForm: React.FC = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+      {/* Error de envío */}
+      {submitError && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6"
+        >
+          <div className="flex items-center space-x-2 text-red-300">
+            <AlertCircle className="w-5 h-5" />
+            <span className="text-sm">{submitError}</span>
+          </div>
+        </motion.div>
+      )}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Campo Nombre */}
         <motion.div whileFocus={{ scale: 1.02 }} className="space-y-2">
@@ -309,7 +355,7 @@ const ContactForm: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="text-white/60 text-xs text-center mt-4"
       >
-        * Todos los campos son obligatorios
+        * Todos los campos son obligatorios. El mensaje será enviado a hola@melropstore.com
       </motion.p>
     </form>
   );
