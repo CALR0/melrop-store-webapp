@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { FormData } from '../../types';
@@ -15,25 +15,23 @@ const ContactForm: React.FC = () => {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Validación para el nombre (solo letras y espacios)
-  const validateName = (name: string): boolean => {
+  // Memoizar funciones de validación
+  const validateName = useCallback((name: string): boolean => {
     const nameRegex = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     return nameRegex.test(name.trim()) && name.trim().length >= 2;
-  };
+  }, []);
 
-  // Validación para el email
-  const validateEmail = (email: string): boolean => {
+  const validateEmail = useCallback((email: string): boolean => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
-  };
+  }, []);
 
-  // Validación para el mensaje (mínimo 10 caracteres)
-  const validateMessage = (message: string): boolean => {
+  const validateMessage = useCallback((message: string): boolean => {
     return message.trim().length >= 10;
-  };
+  }, []);
 
-  // Validar formulario completo
-  const validateForm = (): boolean => {
+  // Validar formulario completo optimizado
+  const validateForm = useCallback((): boolean => {
     const newErrors: Partial<FormData> = {};
 
     if (!formData.name.trim()) {
@@ -60,36 +58,35 @@ const ContactForm: React.FC = () => {
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  };
+  }, [formData, validateName, validateEmail, validateMessage]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  // Optimizar manejo de cambios en inputs
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     
-    // Validación en tiempo real para el nombre
+    let processedValue = value;
+    
+    // Filtrar solo para el campo nombre
     if (name === 'name') {
-      // Filtrar números y caracteres especiales
-      const filteredValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
-      setFormData({
-        ...formData,
-        [name]: filteredValue
-      });
-    } else {
-      setFormData({
-        ...formData,
-        [name]: value
-      });
+      processedValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
     }
+    
+    setFormData(prev => ({
+      ...prev,
+      [name]: processedValue
+    }));
 
-    // Limpiar error del campo cuando el usuario empiece a escribir
+    // Limpiar error del campo
     if (errors[name as keyof FormData]) {
-      setErrors({
-        ...errors,
+      setErrors(prev => ({
+        ...prev,
         [name]: undefined
-      });
+      }));
     }
-  };
+  }, [errors]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Optimizar envío del formulario
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -98,7 +95,7 @@ const ContactForm: React.FC = () => {
 
     setIsSubmitting(true);
     
-    // Simular envío del formulario
+    // Simular envío con timeout optimizado
     setTimeout(() => {
       setIsSubmitted(true);
       setIsSubmitting(false);
@@ -107,8 +104,11 @@ const ContactForm: React.FC = () => {
         setFormData({ name: '', email: '', product: '', message: '' });
         setErrors({});
       }, 3000);
-    }, 1000);
-  };
+    }, 800); // Reducir tiempo de simulación
+  }, [validateForm]);
+
+  // Memoizar contador de caracteres
+  const messageLength = useMemo(() => formData.message.length, [formData.message]);
 
   if (isSubmitted) {
     return (
@@ -245,7 +245,7 @@ const ContactForm: React.FC = () => {
         <label htmlFor="message" className="block text-sm font-medium text-white">
           Mensaje *
           <span className="text-white/60 text-xs ml-2">
-            ({formData.message.length}/10 mínimo)
+            ({messageLength}/10 mínimo)
           </span>
         </label>
         <div className="relative">
