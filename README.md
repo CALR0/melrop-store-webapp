@@ -1,6 +1,6 @@
 # Melrop Store 🛒
 
-Una tienda en línea informativa construida con React, TypeScript y Tailwind CSS.
+Una tienda en línea informativa para clientes interesados en compra de variedades de productos, entre ellos, consumibles, utensilios y otros más.
 
 ## Tecnologías usadas para la web app
 
@@ -31,6 +31,6 @@ npm run dev
 npm run build
 ```
 
-Este proyecto esta bajo la licencia Creative Commons (CC)
+Este proyecto esta bajo la licencia Creative Commons (CC).
 
 © 2025
