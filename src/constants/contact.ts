@@ -5,14 +5,14 @@ export const CONTACT_INFO: ContactInfo[] = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'hola@melropstore.com',
+    content: 'melropstore@gmail.com',
     description: 'Envíanos un email cuando quieras'
   },
   {
     icon: Phone,
     title: 'Teléfono',
-    content: '+57 3001234567',
-    description: 'Lun-Vie de 8am a 5pm'
+    content: '+57 316 2497083',
+    description: 'Lun-Vie de 9am a 8pm'
   },
   {
     icon: MapPin,

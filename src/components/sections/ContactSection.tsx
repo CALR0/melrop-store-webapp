@@ -165,7 +165,7 @@ const ContactSection: React.FC = () => {
                   <Sparkles className="w-4 h-4 text-purple-400" />
                 </motion.div>
                 <span className="text-sm">
-                  Respuesta garantizada en 24 horas
+                  Respuesta garantizada en 48 horas
                 </span>
               </div>
             </motion.div>
