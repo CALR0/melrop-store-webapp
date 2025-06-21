@@ -16,6 +16,14 @@ A continuación se muestran imagenes de la web app en funcionamiento:
   <img src="public/demo3.png" alt="Demo 3" width="600"/>
 </p>
 
+--- 
+
+## Chequealo en linea
+
+Visita el sitio: https://melropstore.netlify.app/ 
+
+---
+
 ## Tecnologías usadas para la web app
 
 - React 18
